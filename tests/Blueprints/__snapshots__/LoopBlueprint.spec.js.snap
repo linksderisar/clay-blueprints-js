@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can be converted 1`] = `
+Object {
+  "_iterable": "loop.ref",
+  "_type": "",
+  "id": Any<String>,
+}
+`;

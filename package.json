@@ -1,0 +1,22 @@
+{
+  "name": "clay-blueprint-js",
+  "version": "1.0.0",
+  "description": "A Javascript library to create Clay blueprints",
+  "main": "index.js",
+  "repository": "https://github.com/linksderisar/clay-blueprints-js.git",
+  "author": "Stefan Döllner <s.doellner@airlst.com>",
+  "license": "MIT",
+  "private": null,
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
