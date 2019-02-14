@@ -1,7 +1,5 @@
-import ConditionBlueprint from './ConditionBlueprint';
+import AbstractConditionBlueprint from "./Abstracts/AbstractConditionBlueprint";
 
-export default class ShowConditionBlueprint extends ConditionBlueprint {
-    constructor () {
-        super('show');
-    }
+export default class ShowConditionBlueprint extends AbstractConditionBlueprint {
+    type = 'show';
 }

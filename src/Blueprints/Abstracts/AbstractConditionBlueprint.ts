@@ -7,7 +7,7 @@ export default abstract class AbstractConditionBlueprint extends AbstractBluepri
         return this.condition;
     }
 
-    public setCondition(condition: string): AbstractConditionBlueprint {
+    public setCondition(condition: string): this {
         this.condition = condition;
         return this;
     }

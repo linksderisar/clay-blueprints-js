@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import BlueprintInterface from "./Contracts/BlueprintInterface";
+import AbstractBlueprint from "./Abstracts/AbstractBlueprint";
 
-export default class RootBlueprint implements BlueprintInterface {
+export default class RootBlueprint extends AbstractBlueprint {
     private _store: object;
     private _meta: object[];
     private _head: object;
-    private _componentTree: Blueprint;
+    private _componentTree: AbstractBlueprint;
 
     constructor(componentTree) {
         super();

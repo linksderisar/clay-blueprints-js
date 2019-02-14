@@ -27,12 +27,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     protected on = {};
     protected children: ComponentBlueprint[] = [];
     protected classes = {};
-    protected style: string[] = [];
+    protected style = {};
     protected affect = '';
     protected bound: string[] = [];
-    protected loop: AbstractBlueprint|undefined;
+    protected loop: AbstractBlueprint | undefined;
     protected conditions: AbstractConditionBlueprint[] = [];
-    protected text: TextBlueprint|undefined;
+    protected text: TextBlueprint | undefined;
 
     // fixme add text, loop, and conditions
 
@@ -40,12 +40,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.bound;
     }
 
-    public setBound(bound: string[]): ComponentBlueprint {
+    public setBound(bound: string[]): this {
         this.bound = bound;
         return this;
     }
 
-    protected addBound(bound: string): ComponentBlueprint {
+    protected addBound(bound: string): this {
         this.bound = [...this.bound, bound];
         return this;
     }
@@ -54,12 +54,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.ref;
     }
 
-    public setRef(ref: string): ComponentBlueprint {
+    public setRef(ref: string): this {
         this.ref = ref;
         return this;
     }
 
-    public setBindRef(ref: string): ComponentBlueprint {
+    public setBindRef(ref: string): this {
         this.ref = ref;
         this.addBound('ref');
         return this;
@@ -69,12 +69,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.key;
     }
 
-    public setKey(key: string): ComponentBlueprint {
+    public setKey(key: string): this {
         this.key = key;
         return this;
     }
 
-    public setBindKey(key: string): ComponentBlueprint {
+    public setBindKey(key: string): this {
         this.key = key;
         this.addBound('key');
         return this;
@@ -84,7 +84,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.refInFor;
     }
 
-    public setRefInFor(refInFor: boolean): ComponentBlueprint {
+    public setRefInFor(refInFor: boolean): this {
         this.refInFor = refInFor;
         return this;
     }
@@ -93,8 +93,8 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.scopedSlots;
     }
 
-    public setScopedSlots(scopedSlots: (string) => AbstractBlueprint|AbstractBlueprint[]): ComponentBlueprint {
-        const bp: AbstractBlueprint|AbstractBlueprint[] = scopedSlots((ref) => this.slotProp(ref));
+    public setScopedSlots(scopedSlots: (string) => AbstractBlueprint | AbstractBlueprint[]): this {
+        const bp: AbstractBlueprint | AbstractBlueprint[] = scopedSlots((ref) => this.slotProp(ref));
 
         if (bp instanceof AbstractBlueprint) {
             this.scopedSlots = [bp];
@@ -113,12 +113,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.attributes;
     }
 
-    public setAttributes(attributes: {}): ComponentBlueprint {
+    public setAttributes(attributes: {}): this {
         this.attributes = attributes;
         return this;
     }
 
-    public setBindAttributes(attributes: {}): ComponentBlueprint {
+    public setBindAttributes(attributes: {}): this {
         this.attributes = mapWithColon(attributes);
         return this;
     }
@@ -127,7 +127,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.addBindAttributes({[key]: value});
     }
 
-    public addBindAttributes(attributes: {}): ComponentBlueprint {
+    public addBindAttributes(attributes: {}): this {
         this.attributes = {
             ...this.attributes,
             ...mapWithColon(attributes)
@@ -136,7 +136,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this;
     }
 
-    public addAttributes(attributes: {}): ComponentBlueprint {
+    public addAttributes(attributes: {}): this {
         this.attributes = {
             ...this.attributes,
             ...attributes
@@ -149,17 +149,17 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.props;
     }
 
-    public setProps(props: {}): ComponentBlueprint {
+    public setProps(props: {}): this {
         this.props = props;
         return this;
     }
 
-    public setBindProps(props: {}): ComponentBlueprint {
+    public setBindProps(props: {}): this {
         this.props = mapWithColon(props);
         return this;
     }
 
-    public addProps(props: {}): ComponentBlueprint {
+    public addProps(props: {}): this {
         // in Clay PHP props are replaced recursively, but this doesn't seem to make sense
         this.props = {
             ...this.props,
@@ -168,7 +168,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this;
     }
 
-    public addBindProps(props: {}): ComponentBlueprint {
+    public addBindProps(props: {}): this {
         this.props = {
             ...this.props,
             ...mapWithColon(props)
@@ -176,7 +176,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this;
     }
 
-    public addBindProp(key: string, value: any): ComponentBlueprint {
+    public addBindProp(key: string, value: any): this {
         return this.addBindProps({[key]: value});
     }
 
@@ -184,12 +184,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.on;
     }
 
-    public setOn(on: {}): ComponentBlueprint {
+    public setOn(on: {}): this {
         this.on = on;
         return this;
     }
 
-    public addOn(on: {}): ComponentBlueprint {
+    public addOn(on: {}): this {
         this.on = {
             ...this.on,
             ...on
@@ -201,7 +201,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.children;
     }
 
-    public setChildren(children: ComponentBlueprint[]): ComponentBlueprint {
+    public setChildren(children: ComponentBlueprint[]): this {
         this.children = children;
         return this;
     }
@@ -210,30 +210,30 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.classes;
     }
 
-    public setClasses(classes: {}): ComponentBlueprint {
+    public setClasses(classes: {}): this {
         this.classes = {'class': classes};
         return this;
     }
 
-    public setBindClasses(ref: string): ComponentBlueprint {
+    public setBindClasses(ref: string): this {
         this.classes = {':class': ref};
         return this;
     }
 
-    public getStyle(): string[] {
+    public getStyle() {
         return this.style;
     }
 
-    public setStyle(style: string[]): ComponentBlueprint {
+    public setStyle(style: {}[]): this {
         this.style = style;
         return this;
     }
 
-    public getLoop(): AbstractBlueprint|undefined {
+    public getLoop(): AbstractBlueprint | undefined {
         return this.loop;
     }
 
-    public setLoop(loop: AbstractBlueprint): ComponentBlueprint {
+    public setLoop(loop: AbstractBlueprint): this {
         this.loop = loop;
         return this;
     }
@@ -242,12 +242,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.conditions;
     }
 
-    public setConditions(conditions: AbstractConditionBlueprint[]): ComponentBlueprint {
+    public setConditions(conditions: AbstractConditionBlueprint[]): this {
         this.conditions = conditions;
         return this;
     }
 
-    public addCondition(condition: AbstractConditionBlueprint): ComponentBlueprint {
+    public addCondition(condition: AbstractConditionBlueprint): this {
         this.conditions = [
             ...this.conditions,
             condition
@@ -259,21 +259,25 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.affect;
     }
 
-    public setAffect(affect: string): ComponentBlueprint {
+    public setAffect(affect: string): this {
         this.affect = affect;
         return this;
     }
 
-    public getText(): TextBlueprint|undefined {
-        return this.text;
+    public getText(): string|null {
+        if (this.text instanceof TextBlueprint) {
+            return this.text.getContent();
+        }
+
+        return null;
     }
 
-    public setText(text: string): ComponentBlueprint {
+    public setText(text: string): this {
         this.text = new TextBlueprint(text);
         return this;
     }
 
-    public setBindText(text: string): ComponentBlueprint {
+    public setBindText(text: string): this {
         this.text = new TextBlueprint(text);
         this.text.bind();
         return this;
@@ -283,7 +287,12 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.bound.find((k) => k === key);
     }
 
-    static create<T = AbstractBlueprint>(this: { new(): T }, ...attributes) {
+    constructor(type: string) {
+        super();
+        this.type = type;
+    }
+
+    static create(...attributes) {
         if (attributes.length === 0 || typeof attributes[0] !== 'string') {
             throw new BlueprintException('First parameter for create must be the type');
         }
@@ -291,10 +300,6 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return new this(attributes[0]);
     }
 
-    constructor(type: string) {
-        super();
-        this.type = type;
-    }
 
     toObject() {
         let obj = super.toObject();
@@ -315,7 +320,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
             obj['attributes']['refInFor'] = this.refInFor;
         }
 
-        if (this.style.length > 0) {
+        if (Object.keys(this.style).length > 0) {
             obj['attributes']['style'] = this.style;
         }
 

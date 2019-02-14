@@ -2,8 +2,8 @@ export {default as ComponentBlueprint} from './Blueprints/ComponentBlueprint';
 export {default as ShowConditionBlueprint} from './Blueprints/ShowConditionBlueprint';
 export {default as IfConditionBlueprint} from './Blueprints/IfConditionBlueprint';
 export {default as LoopBlueprint} from './Blueprints/LoopBlueprint';
-export {default as Blueprint} from './Blueprints/Blueprint';
-export {default as ConditionBlueprint} from './Blueprints/ConditionBlueprint';
+export {default as Blueprint} from './Blueprints/Abstracts/AbstractBlueprint';
+export {default as ConditionBlueprint} from './Blueprints/Abstracts/AbstractConditionBlueprint';
 export {default as RootBlueprint} from './Blueprints/RootBlueprint';
 export {default as TextBlueprint} from './Blueprints/TextBlueprint';
 

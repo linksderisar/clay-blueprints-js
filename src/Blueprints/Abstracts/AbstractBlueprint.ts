@@ -2,7 +2,7 @@ import BlueprintInterface from "../Contracts/BlueprintInterface";
 import _ from "lodash";
 import RequiredBlueprintAttributeMissingException from "../../Exceptions/RequiredBlueprintAttributeMissingException";
 
-export default abstract class AbstractBlueprint implements BlueprintInterface {
+export default class AbstractBlueprint implements BlueprintInterface {
     private readonly id: string;
     protected type!: string;
 
@@ -22,20 +22,21 @@ export default abstract class AbstractBlueprint implements BlueprintInterface {
         return _.times(40, () => _.random(35).toString(36)).join('');
     }
 
-    static create<T = AbstractBlueprint>(this: { new(): T }, ...attributes) {
-        return new this();
-    }
-
     clone(): BlueprintInterface {
         throw new Error("Method not implemented.");
     }
 
-    toObject(): object {
+    static create(...attributes) {
+        return new this();
+    }
+
+    toObject() {
         return {
             id: this.id,
             type: this.type
         };
     }
+
     toJson(): string {
         return JSON.stringify(this.toObject());
     }

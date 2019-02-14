@@ -1,40 +1,45 @@
-import Blueprint from './Blueprint';
+import AbstractBlueprint from "./Abstracts/AbstractBlueprint";
 
-export default class TextBlueprint extends Blueprint {
+export default class TextBlueprint extends AbstractBlueprint {
+        type = '$text';
+        content: string = '';
+        bound = false;
+
     constructor(content = '') {
-        super('$text');
-        this._content = content;
-        this._bound = false;
+        super();
+        this.content = content;
+        this.bound = false;
     }
 
-    get content() {
-        return this._content;
+    public getContent(): string {
+        return this.content;
     }
 
-    set content(value) {
-        this._content = value;
-    }
-
-    bind(bound = true) {
-        this._bound = bound;
+    public setContent(content: string): this {
+        this.content = content;
         return this;
     }
 
-    get bound() {
-        return this._bound;
+    bind(bound = true): this {
+        this.bound = bound;
+        return this;
     }
 
-    set bound(value) {
-        this._bound = value;
+    isBound() {
+        return this.bound;
+    }
+
+    setBound(value) {
+        this.bound = value;
     }
 
     toObject() {
         const obj = super.toObject();
 
         if (this.bound) {
-            obj[':value'] = this._content;
+            obj[':value'] = this.content;
         } else {
-            obj['value'] = this._content;
+            obj['value'] = this.content;
         }
 
         return obj;
