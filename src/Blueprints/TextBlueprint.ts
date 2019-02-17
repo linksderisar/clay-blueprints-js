@@ -33,7 +33,7 @@ export default class TextBlueprint extends AbstractBlueprint {
         this.bound = value;
     }
 
-    toObject() {
+    toObject(): any {
         const obj = super.toObject();
 
         if (this.bound) {

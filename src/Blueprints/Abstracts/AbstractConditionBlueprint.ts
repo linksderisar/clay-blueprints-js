@@ -12,7 +12,7 @@ export default abstract class AbstractConditionBlueprint extends AbstractBluepri
         return this;
     }
 
-    toObject(): object {
+    toObject(): any {
         return {
             [this.getType()]: this.condition
         };

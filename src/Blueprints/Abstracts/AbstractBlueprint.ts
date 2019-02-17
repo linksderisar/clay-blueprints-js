@@ -30,7 +30,7 @@ export default class AbstractBlueprint implements BlueprintInterface {
         return new this();
     }
 
-    toObject() {
+    toObject(): any {
         return {
             id: this.id,
             type: this.type

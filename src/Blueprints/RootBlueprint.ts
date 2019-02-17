@@ -52,7 +52,7 @@ export default class RootBlueprint extends AbstractBlueprint {
         this._componentTree = value;
     }
 
-    toObject() {
+    toObject(): any {
         return {
             'store': this._store,
             'componentTree': _.isEmpty(this._componentTree) ? {} : this._componentTree.toObject(),

@@ -13,7 +13,7 @@ export default class LoopBlueprint extends AbstractBlueprint {
         return this;
     }
 
-    toObject() {
+    toObject(): any {
         return {
             'loop': this.iterable
         };

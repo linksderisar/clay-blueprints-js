@@ -301,7 +301,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     }
 
 
-    toObject() {
+    toObject(): any {
         let obj = super.toObject();
 
         if (!obj.hasOwnProperty('attributes')) {
