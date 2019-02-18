@@ -76,7 +76,7 @@ it('sets bound props', () => {
 });
 
 it('sets attributes', () => {
-    blueprint.attributes = {'id': 'ID'};
+    blueprint.setAttributes({'id': 'ID'});
     matchesSnapshot();
 
     blueprint.addAttributes({'type': 'password'});
@@ -117,19 +117,19 @@ it('sets attributes', () => {
 //     });
 // });
 
-it('sets children', () => {
-    blueprint.setChildren([
-        new ComponentBlueprint('child'),
-        new ComponentBlueprint('child2')
-    ]);
-    expect(blueprint.toObject().children[0]).toMatchSnapshot({
-        id: expect.any(String)
-    });
-
-    expect(blueprint.toObject().children[1]).toMatchSnapshot({
-        id: expect.any(String)
-    });
-});
+// it('sets children', () => {
+//     blueprint.setChildren([
+//         new ComponentBlueprint('child'),
+//         new ComponentBlueprint('child2')
+//     ]);
+//     expect(blueprint.toObject().children[0]).toMatchSnapshot({
+//         id: expect.any(String)
+//     });
+//
+//     expect(blueprint.toObject().children[1]).toMatchSnapshot({
+//         id: expect.any(String)
+//     });
+// });
 
 it('sets loop', () => {
     blueprint.setLoop(LoopBlueprint.create('loop.ref'));
@@ -137,15 +137,13 @@ it('sets loop', () => {
 });
 
 it('sets if', () => {
-    const ifCondition = IfConditionBlueprint.create();
-    ifCondition.setCondition('a === b');
+    const ifCondition = IfConditionBlueprint.create().setCondition('a === b');
     blueprint.addCondition(ifCondition);
     matchesSnapshot();
 });
 
 it('sets show', () => {
-    const showCondition = new ShowConditionBlueprint();
-    showCondition.condition = 'a === b';
+    const showCondition = ShowConditionBlueprint.create().setCondition('a === b');
     blueprint.addCondition(showCondition);
     matchesSnapshot();
 });

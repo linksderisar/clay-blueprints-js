@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initializes an empty root blueprint 1`] = `"{\\"store\\":{},\\"componentTree\\":{},\\"meta\\":[],\\"head\\":{}}"`;
+
+exports[`sets head 1`] = `"{\\"store\\":{},\\"componentTree\\":{},\\"meta\\":[],\\"head\\":{\\"title\\":\\"here is a title\\"}}"`;
+
+exports[`sets meta 1`] = `"{\\"store\\":{},\\"componentTree\\":{},\\"meta\\":{\\"meta\\":\\"meta-value\\"},\\"head\\":{}}"`;
+
+exports[`sets the component tree 1`] = `
+Object {
+  "componentTree": Object {
+    "id": Any<String>,
+    "type": undefined,
+  },
+  "head": Object {},
+  "meta": Array [],
+  "store": Object {},
+}
+`;
+
+exports[`sets the component tree during construct 1`] = `
+Object {
+  "componentTree": Object {
+    "id": Any<String>,
+    "type": undefined,
+  },
+  "head": Object {},
+  "meta": Array [],
+  "store": Object {},
+}
+`;
+
+exports[`sets the store 1`] = `"{\\"store\\":{\\"data\\":\\"value\\"},\\"componentTree\\":{},\\"meta\\":[],\\"head\\":{}}"`;
