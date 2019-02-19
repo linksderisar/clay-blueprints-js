@@ -1,8 +1,8 @@
 import {
     ComponentBlueprint,
-    LoopBlueprint,
     IfConditionBlueprint,
-    ShowConditionBlueprint
+    LoopBlueprint,
+    ShowConditionBlueprint,
 } from '../../src/index';
 
 let blueprint!: ComponentBlueprint;
@@ -11,7 +11,7 @@ beforeEach(() => blueprint = ComponentBlueprint.create('test'));
 
 function matchesSnapshot() {
     expect(blueprint.toObject()).toMatchSnapshot({
-        id: expect.any(String)
+        id: expect.any(String),
     });
 }
 
@@ -60,26 +60,26 @@ it('sets text', () => {
 });
 
 it('sets props', () => {
-    blueprint.setProps({'prop': 'propValue'});
+    blueprint.setProps({prop: 'propValue'});
     matchesSnapshot();
 
-    blueprint.addProps({'addProp': 'propValue'});
+    blueprint.addProps({addProp: 'propValue'});
     matchesSnapshot();
 });
 
 it('sets bound props', () => {
-    blueprint.setBindProps({'prop': 'prop.ref'});
+    blueprint.setBindProps({prop: 'prop.ref'});
     matchesSnapshot();
 
-    blueprint.addBindProps({'addProp': 'prop.ref'});
+    blueprint.addBindProps({addProp: 'prop.ref'});
     matchesSnapshot();
 });
 
 it('sets attributes', () => {
-    blueprint.setAttributes({'id': 'ID'});
+    blueprint.setAttributes({id: 'ID'});
     matchesSnapshot();
 
-    blueprint.addAttributes({'type': 'password'});
+    blueprint.addAttributes({type: 'password'});
     matchesSnapshot();
 });
 

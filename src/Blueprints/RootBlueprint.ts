@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import BaseComponent from '../Components/Base/BaseComponent';
 import AbstractBlueprint from './Abstracts/AbstractBlueprint';
 
 export default class RootBlueprint extends AbstractBlueprint {
@@ -10,7 +11,7 @@ export default class RootBlueprint extends AbstractBlueprint {
     private _store: {};
     private _meta: {};
     private _head: {};
-    private _componentTree: AbstractBlueprint;
+    private _componentTree: BaseComponent;
 
     constructor(componentTree) {
         super();
@@ -74,11 +75,11 @@ export default class RootBlueprint extends AbstractBlueprint {
         return this;
     }
 
-    public getComponentTree(): AbstractBlueprint {
+    public getComponentTree(): BaseComponent {
         return this._componentTree;
     }
 
-    public setComponentTree(componentTree: AbstractBlueprint): RootBlueprint {
+    public setComponentTree(componentTree: BaseComponent): RootBlueprint {
         this._componentTree = componentTree;
         return this;
     }

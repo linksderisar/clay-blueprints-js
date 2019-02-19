@@ -1,43 +1,43 @@
+import {Component} from '../../src/';
 import RootBlueprint from '../../src/Blueprints/RootBlueprint';
-import Component from '../../src/Components/Component';
 
-let blueprint = null;
+let blueprint: RootBlueprint;
 
-beforeEach(() => blueprint = new RootBlueprint());
+beforeEach(() => blueprint = RootBlueprint.create());
 
 it('initializes an empty root blueprint', () => {
     expect(blueprint.toJson()).toMatchSnapshot();
 });
 
 it('sets the store', () => {
-    blueprint.store = {'data': 'value'};
+    blueprint.setStore({data: 'value'});
     expect(blueprint.toJson()).toMatchSnapshot();
 });
 
 it('sets meta', () => {
-    blueprint.meta = {'meta': 'meta-value'};
+    blueprint.setMeta({meta: 'meta-value'});
     expect(blueprint.toJson()).toMatchSnapshot();
 });
 
 it('sets head', () => {
-    blueprint.head = {'title': 'here is a title'};
+    blueprint.setHead({title: 'here is a title'});
     expect(blueprint.toJson()).toMatchSnapshot();
 });
 
 it('sets the component tree', () => {
-    blueprint.componentTree = new Component('div');
+    blueprint.setComponentTree(Component.create('div'));
     expect(blueprint.toObject()).toMatchSnapshot({
         componentTree: {
-            id: expect.any(String)
-        }
+            id: expect.any(String),
+        },
     });
 });
 
 it('sets the component tree during construct', () => {
-    blueprint = new RootBlueprint(new Component('div'));
+    blueprint = new RootBlueprint(Component.create('div'));
     expect(blueprint.toObject()).toMatchSnapshot({
         componentTree: {
-            id: expect.any(String)
-        }
+            id: expect.any(String),
+        },
     });
 });

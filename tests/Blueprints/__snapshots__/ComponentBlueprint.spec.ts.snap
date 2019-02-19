@@ -72,6 +72,11 @@ Object {
 
 exports[`sets bound props 1`] = `
 Object {
+  "attributes": Object {
+    "props": Object {
+      ":prop": "prop.ref",
+    },
+  },
   "id": Any<String>,
   "type": "test",
 }
@@ -82,24 +87,11 @@ Object {
   "attributes": Object {
     "props": Object {
       ":addProp": "prop.ref",
+      ":prop": "prop.ref",
     },
   },
   "id": Any<String>,
   "type": "test",
-}
-`;
-
-exports[`sets children 1`] = `
-Object {
-  "id": Any<String>,
-  "type": "child",
-}
-`;
-
-exports[`sets children 2`] = `
-Object {
-  "id": Any<String>,
-  "type": "child2",
 }
 `;
 

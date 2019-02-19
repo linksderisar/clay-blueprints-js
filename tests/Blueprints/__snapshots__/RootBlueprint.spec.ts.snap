@@ -10,7 +10,7 @@ exports[`sets the component tree 1`] = `
 Object {
   "componentTree": Object {
     "id": Any<String>,
-    "type": undefined,
+    "type": "",
   },
   "head": Object {},
   "meta": Array [],
@@ -22,7 +22,7 @@ exports[`sets the component tree during construct 1`] = `
 Object {
   "componentTree": Object {
     "id": Any<String>,
-    "type": undefined,
+    "type": "",
   },
   "head": Object {},
   "meta": Array [],
