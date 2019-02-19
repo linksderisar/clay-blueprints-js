@@ -1,9 +1,9 @@
-import AbstractBlueprint from "./Abstracts/AbstractBlueprint";
+import AbstractBlueprint from './Abstracts/AbstractBlueprint';
 
 export default class TextBlueprint extends AbstractBlueprint {
-        type = '$text';
-        content: string = '';
-        bound = false;
+    type = '$text';
+    content: string = '';
+    bound = false;
 
     constructor(content = '') {
         super();
@@ -39,7 +39,7 @@ export default class TextBlueprint extends AbstractBlueprint {
         if (this.bound) {
             obj[':value'] = this.content;
         } else {
-            obj['value'] = this.content;
+            obj.value = this.content;
         }
 
         return obj;

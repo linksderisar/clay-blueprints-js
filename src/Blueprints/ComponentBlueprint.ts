@@ -1,7 +1,7 @@
-import AbstractBlueprint from "./Abstracts/AbstractBlueprint";
-import TextBlueprint from "./TextBlueprint";
-import BlueprintException from "../Exceptions/BlueprintException";
-import AbstractConditionBlueprint from "./Abstracts/AbstractConditionBlueprint";
+import BlueprintException from '../Exceptions/BlueprintException';
+import AbstractBlueprint from './Abstracts/AbstractBlueprint';
+import AbstractConditionBlueprint from './Abstracts/AbstractConditionBlueprint';
+import TextBlueprint from './TextBlueprint';
 
 export const SLOT_PROPS = '$_slot_props';
 
@@ -13,11 +13,20 @@ export const LOOP_VALUE = '$_loop_value';
 
 const mapWithColon = (obj: {}) => {
     const newObj = {};
-    Object.keys(obj).forEach(k => newObj[":" + k] = obj[k]);
+    Object.keys(obj).forEach((k) => newObj[':' + k] = obj[k]);
     return newObj;
 };
 
 export default class ComponentBlueprint extends AbstractBlueprint {
+
+    static create(...attributes) {
+        if (attributes.length === 0 || typeof attributes[0] !== 'string') {
+            throw new BlueprintException('First parameter for create must be the type');
+        }
+
+        return new this(attributes[0]);
+    }
+
     protected ref = '';
     protected key = '';
     protected refInFor = false;
@@ -34,7 +43,10 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     protected conditions: AbstractConditionBlueprint[] = [];
     protected text: TextBlueprint | undefined;
 
-    // fixme add text, loop, and conditions
+    constructor(type: string) {
+        super();
+        this.type = type;
+    }
 
     public getBound(): string[] {
         return this.bound;
@@ -42,11 +54,6 @@ export default class ComponentBlueprint extends AbstractBlueprint {
 
     public setBound(bound: string[]): this {
         this.bound = bound;
-        return this;
-    }
-
-    protected addBound(bound: string): this {
-        this.bound = [...this.bound, bound];
         return this;
     }
 
@@ -130,7 +137,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     public addBindAttributes(attributes: {}): this {
         this.attributes = {
             ...this.attributes,
-            ...mapWithColon(attributes)
+            ...mapWithColon(attributes),
         };
 
         return this;
@@ -139,7 +146,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     public addAttributes(attributes: {}): this {
         this.attributes = {
             ...this.attributes,
-            ...attributes
+            ...attributes,
         };
 
         return this;
@@ -163,7 +170,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         // in Clay PHP props are replaced recursively, but this doesn't seem to make sense
         this.props = {
             ...this.props,
-            ...props
+            ...props,
         };
         return this;
     }
@@ -171,7 +178,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     public addBindProps(props: {}): this {
         this.props = {
             ...this.props,
-            ...mapWithColon(props)
+            ...mapWithColon(props),
         };
         return this;
     }
@@ -192,7 +199,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     public addOn(on: {}): this {
         this.on = {
             ...this.on,
-            ...on
+            ...on,
         };
         return this;
     }
@@ -211,7 +218,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     }
 
     public setClasses(classes: {}): this {
-        this.classes = {'class': classes};
+        this.classes = {class: classes};
         return this;
     }
 
@@ -224,7 +231,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.style;
     }
 
-    public setStyle(style: {}[]): this {
+    public setStyle(style: Array<{}>): this {
         this.style = style;
         return this;
     }
@@ -250,7 +257,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
     public addCondition(condition: AbstractConditionBlueprint): this {
         this.conditions = [
             ...this.conditions,
-            condition
+            condition,
         ];
         return this;
     }
@@ -287,101 +294,92 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.bound.find((k) => k === key);
     }
 
-    constructor(type: string) {
-        super();
-        this.type = type;
-    }
-
-    static create(...attributes) {
-        if (attributes.length === 0 || typeof attributes[0] !== 'string') {
-            throw new BlueprintException('First parameter for create must be the type');
-        }
-
-        return new this(attributes[0]);
-    }
-
-
     toObject(): any {
         let obj = super.toObject();
 
         if (!obj.hasOwnProperty('attributes')) {
-            obj['attributes'] = {};
+            obj.attributes = {};
         }
 
         if (this.key !== '') {
-            obj['attributes'][this.isBound('key') ? ':key' : 'key'] = this.key;
+            obj.attributes[this.isBound('key') ? ':key' : 'key'] = this.key;
         }
 
         if (this.ref !== '') {
-            obj['attributes'][this.isBound('ref') ? ':ref' : 'ref'] = this.ref;
+            obj.attributes[this.isBound('ref') ? ':ref' : 'ref'] = this.ref;
         }
 
         if (this.refInFor) {
-            obj['attributes']['refInFor'] = this.refInFor;
+            obj.attributes.refInFor = this.refInFor;
         }
 
         if (Object.keys(this.style).length > 0) {
-            obj['attributes']['style'] = this.style;
+            obj.attributes.style = this.style;
         }
 
         if (Object.keys(this.props).length > 0) {
-            obj['attributes']['props'] = this.props;
+            obj.attributes.props = this.props;
         }
 
         if (Object.keys(this.on).length > 0) {
-            obj['attributes']['on'] = this.on;
+            obj.attributes.on = this.on;
         }
 
         if (Object.keys(this.classes).length > 0) {
-            obj['attributes'] = {
-                ...obj['attributes'],
-                ...this.classes
+            obj.attributes = {
+                ...obj.attributes,
+                ...this.classes,
             };
 
         }
 
         if (Object.keys(this.attributes).length > 0) {
-            obj['attributes']['attrs'] = {
-                ...obj['attributes'],
-                ...this.attributes
+            obj.attributes.attrs = {
+                ...obj.attributes,
+                ...this.attributes,
             };
         }
 
-        if (typeof this.loop !== "undefined") {
+        if (typeof this.loop !== 'undefined') {
             obj = {
                 ...obj,
-                ...this.loop.toObject()
+                ...this.loop.toObject(),
             };
         }
 
         if (this.conditions.length > 0) {
             obj = {
                 ...obj,
-                ...this.conditions.map((condition) => condition.toObject())
+                ...this.conditions.map((condition) => condition.toObject()),
             };
         }
 
         if (typeof this.text !== 'undefined') {
-            obj['children'] = this.text.toObject();
+            obj.children = this.text.toObject();
             return obj;
         }
 
         if (this.affect !== '') {
-            obj['affect'] = this.affect;
+            obj.affect = this.affect;
         }
 
         if (this.scopedSlots.length > 0) {
-            obj['scopedSlots'] = this.scopedSlots.map(s => s.toObject());
+            obj.scopedSlots = this.scopedSlots.map((s) => s.toObject());
         }
 
         if (this.children.length > 0) {
-            obj['children'] = this.children.map(c => c.toObject());
+            obj.children = this.children.map((c) => c.toObject());
         }
 
-        if (Object.keys(obj['attributes']).length === 0) {
-            delete obj['attributes'];
+        if (Object.keys(obj.attributes).length === 0) {
+            delete obj.attributes;
         }
 
         return obj;
+    }
+
+    protected addBound(bound: string): this {
+        this.bound = [...this.bound, bound];
+        return this;
     }
 }

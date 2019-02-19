@@ -9,7 +9,8 @@
   "private": false,
   "dependencies": {
     "@types/lodash": "^4.14.120",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "tslint": "^5.12.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -21,7 +22,8 @@
     "@types/jest": "^24.0.3",
     "babel-jest": "24.1.0",
     "jest": "24.1.0",
-    "typescript": "3.3.3"
+    "typescript": "3.3.3",
+    "vuepress": "^0.14.9"
   },
   "scripts": {
     "type-check": "tsc --noEmit",
@@ -29,7 +31,9 @@
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "test": "jest"
+    "test": "jest",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "jest": {
     "moduleDirectories": [

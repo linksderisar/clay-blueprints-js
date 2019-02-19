@@ -1,4 +1,4 @@
-import AbstractBlueprint from "./Abstracts/AbstractBlueprint";
+import AbstractBlueprint from './Abstracts/AbstractBlueprint';
 
 export default class LoopBlueprint extends AbstractBlueprint {
 
@@ -15,7 +15,7 @@ export default class LoopBlueprint extends AbstractBlueprint {
 
     toObject(): any {
         return {
-            'loop': this.iterable
+            loop: this.iterable,
         };
     }
 }

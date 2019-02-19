@@ -1,4 +1,4 @@
-import AbstractBlueprint from "./AbstractBlueprint";
+import AbstractBlueprint from './AbstractBlueprint';
 
 export default abstract class AbstractConditionBlueprint extends AbstractBlueprint {
     private condition = '';
@@ -14,7 +14,7 @@ export default abstract class AbstractConditionBlueprint extends AbstractBluepri
 
     toObject(): any {
         return {
-            [this.getType()]: this.condition
+            [this.getType()]: this.condition,
         };
     }
 }

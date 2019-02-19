@@ -1,10 +1,15 @@
 import _ from 'lodash';
-import AbstractBlueprint from "./Abstracts/AbstractBlueprint";
+import AbstractBlueprint from './Abstracts/AbstractBlueprint';
 
 export default class RootBlueprint extends AbstractBlueprint {
-    private _store: object;
-    private _meta: object[];
-    private _head: object;
+
+    static create(...attributes): RootBlueprint {
+        return new this(attributes[0]);
+    }
+
+    private _store: {};
+    private _meta: {};
+    private _head: {};
     private _componentTree: AbstractBlueprint;
 
     constructor(componentTree) {
@@ -13,51 +18,77 @@ export default class RootBlueprint extends AbstractBlueprint {
         this._meta = [];
         this._head = {};
         this._componentTree = componentTree;
-
     }
 
-    addMetas(metas) {
-        this._meta = [ ...this._meta, ...metas ];
+    addMeta(key: string, value: string): RootBlueprint {
+        this._meta = {
+            ...this._meta,
+            [key]: value,
+        };
+
+        return this;
     }
 
-    get store() {
+    addMetas(metas): RootBlueprint {
+        this._meta = {
+            ...this._meta,
+            ...metas,
+        };
+
+        return this;
+    }
+
+    public getStore(): {} {
         return this._store;
     }
 
-    set store(value) {
-        this._store = value;
+    public setStore(store: {}): RootBlueprint {
+        this._store = store;
+        return this;
     }
 
-    get meta() {
+    public getMeta(): {} {
         return this._meta;
     }
 
-    set meta(value) {
-        this._meta = value;
+    public setMeta(meta: {}): RootBlueprint {
+        this._meta = meta;
+        return this;
     }
 
-    get head() {
+    public getHead(): {} {
         return this._head;
     }
 
-    set head(value) {
-        this._head = value;
+    public setHead(head: {}): RootBlueprint {
+        this._head = head;
+        return this;
     }
 
-    get componentTree() {
+    public addHeader(key: string, value: string): RootBlueprint {
+        this._head = {
+            ...this._head,
+            [key]: [value],
+        };
+
+        return this;
+    }
+
+    public getComponentTree(): AbstractBlueprint {
         return this._componentTree;
     }
 
-    set componentTree(value) {
-        this._componentTree = value;
+    public setComponentTree(componentTree: AbstractBlueprint): RootBlueprint {
+        this._componentTree = componentTree;
+        return this;
     }
 
     toObject(): any {
         return {
-            'store': this._store,
-            'componentTree': _.isEmpty(this._componentTree) ? {} : this._componentTree.toObject(),
-            'meta': this._meta,
-            'head': this._head,
-        }
+            store: this._store,
+            componentTree: _.isEmpty(this._componentTree) ? {} : this._componentTree.toObject(),
+            meta: this._meta,
+            head: this._head,
+        };
     }
 }
