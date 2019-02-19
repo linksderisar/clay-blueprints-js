@@ -83,53 +83,54 @@ it('sets attributes', () => {
     matchesSnapshot();
 });
 
-// it('sets scoped slots', () => {
-//     const slot = new ComponentBlueprint('slot');
-//     blueprint.setScopedSlots(() => [slot]);
-//
-//     expect(blueprint.toObject().scopedSlots[0]).toMatchSnapshot({
-//         id: expect.any(String)
-//     });
-//
-//     const slot2 = new ComponentBlueprint('slot2');
-//     blueprint.scopedSlots = () => [slot, slot2];
-//
-//     expect(blueprint.toObject().scopedSlots[1]).toMatchSnapshot({
-//         id: expect.any(String)
-//     });
-//
-// });
+it('sets scoped slots', () => {
+    const slot = ComponentBlueprint.create('slot');
+    blueprint.setScopedSlots(() => [slot]);
 
-// it('slotProp helper works', () => {
-//     const slot = new ComponentBlueprint('slot');
-//     blueprint.scopedSlots = (slotProps) => [
-//         slot.addProps({'prop': slotProps('ref.prop')})
-//     ];
-//
-//     expect(blueprint.toObject().scopedSlots[0]).toMatchObject({
-//         id: slot.id,
-//         type: "slot",
-//         attributes: {
-//             props: {
-//                 prop: `$_slot_props.${blueprint.id}.ref.prop`
-//             }
-//         }
-//     });
-// });
+    expect(blueprint.toObject().scopedSlots[0]).toMatchSnapshot({
+        id: expect.any(String),
+    });
 
-// it('sets children', () => {
-//     blueprint.setChildren([
-//         new ComponentBlueprint('child'),
-//         new ComponentBlueprint('child2')
-//     ]);
-//     expect(blueprint.toObject().children[0]).toMatchSnapshot({
-//         id: expect.any(String)
-//     });
-//
-//     expect(blueprint.toObject().children[1]).toMatchSnapshot({
-//         id: expect.any(String)
-//     });
-// });
+    const slot2 = new ComponentBlueprint('slot2');
+    blueprint.setScopedSlots(() => [slot, slot2]);
+
+    expect(blueprint.toObject().scopedSlots[1]).toMatchSnapshot({
+        id: expect.any(String),
+    });
+
+});
+
+it('slotProp helper works', () => {
+    const slot = new ComponentBlueprint('slot');
+    blueprint.setScopedSlots((slotProps) => [
+        slot.addProps({prop: slotProps('ref.prop')}),
+    ]);
+
+    expect(blueprint.toObject().scopedSlots[0]).toMatchObject({
+        id: slot.getId(),
+        type: 'slot',
+        attributes: {
+            props: {
+                prop: `$_slot_props.${blueprint.getId()}.ref.prop`,
+            },
+        },
+    });
+});
+
+it('sets children', () => {
+    blueprint.setChildren([
+        new ComponentBlueprint('child'),
+        new ComponentBlueprint('child2'),
+    ]);
+
+    expect(blueprint.toObject().children[0]).toMatchSnapshot({
+        id: expect.any(String),
+    });
+
+    expect(blueprint.toObject().children[1]).toMatchSnapshot({
+        id: expect.any(String),
+    });
+});
 
 it('sets loop', () => {
     blueprint.setLoop(LoopBlueprint.create('loop.ref'));

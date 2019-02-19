@@ -95,6 +95,20 @@ Object {
 }
 `;
 
+exports[`sets children 1`] = `
+Object {
+  "id": Any<String>,
+  "type": "child",
+}
+`;
+
+exports[`sets children 2`] = `
+Object {
+  "id": Any<String>,
+  "type": "child2",
+}
+`;
+
 exports[`sets classes 1`] = `
 Object {
   "attributes": Object {
@@ -157,6 +171,20 @@ Object {
   },
   "id": Any<String>,
   "type": "test",
+}
+`;
+
+exports[`sets scoped slots 1`] = `
+Object {
+  "id": Any<String>,
+  "type": "slot",
+}
+`;
+
+exports[`sets scoped slots 2`] = `
+Object {
+  "id": Any<String>,
+  "type": "slot2",
 }
 `;
 
