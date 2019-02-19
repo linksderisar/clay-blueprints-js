@@ -1,16 +1,11 @@
-import {IfConditionBlueprint, ShowConditionBlueprint} from "../../src";
+import {IfConditionBlueprint, ShowConditionBlueprint} from '../../src';
 
 it('if condition works',  () => {
     const condition = IfConditionBlueprint.create().setCondition('a === b');
-    expect(condition).toMatchSnapshot({
-        id: expect.any(String)
-    });
+    expect(condition.toObject()).toMatchSnapshot();
 });
 
 it('show condition works', () => {
     const condition = ShowConditionBlueprint.create().setCondition('a === b');
-    expect(condition).toMatchSnapshot({
-        id: expect.any(String)
-    });
-})
-
+    expect(condition.toObject()).toMatchSnapshot();
+});

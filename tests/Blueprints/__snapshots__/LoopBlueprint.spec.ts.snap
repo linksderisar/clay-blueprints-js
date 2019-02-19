@@ -2,8 +2,6 @@
 
 exports[`can be converted 1`] = `
 Object {
-  "id": Any<String>,
-  "iterable": "",
-  "type": undefined,
+  "loop": "",
 }
 `;
