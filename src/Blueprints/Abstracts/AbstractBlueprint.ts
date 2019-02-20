@@ -7,7 +7,9 @@ export default class AbstractBlueprint implements BlueprintInterface {
     static create(...attributes) {
         return new this();
     }
+
     protected type!: string;
+
     private readonly id: string;
 
     protected constructor() {

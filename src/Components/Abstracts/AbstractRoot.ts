@@ -44,20 +44,20 @@ export default class AbstractRoot {
         return this;
     }
 
-    public header(header) {
-        this._blueprint.addHeader(header.key, header.value);
+    public header(key: string, value: string) {
+        this._blueprint.addHeader(key, value);
         return this;
     }
 
-    public getVersion() {
+    public getVersion(): string  {
         return this.version;
     }
 
-    public toObject() {
-        this._blueprint.toObject();
+    public toObject(): {} {
+        return this._blueprint.toObject();
     }
 
-    public toJson() {
-        this._blueprint.toJson();
+    public toJson(): string {
+        return this._blueprint.toJson();
     }
 }

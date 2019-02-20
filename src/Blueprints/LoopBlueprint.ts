@@ -2,6 +2,12 @@ import AbstractBlueprint from './Abstracts/AbstractBlueprint';
 
 export default class LoopBlueprint extends AbstractBlueprint {
 
+    public static create(iterable: string): LoopBlueprint {
+        const loop = new this();
+        loop.setIterable(iterable);
+        return loop;
+    }
+
     iterable: string = '';
 
     public getIterable(): string {

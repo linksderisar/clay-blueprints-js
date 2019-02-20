@@ -1,6 +1,6 @@
 {
   "name": "clay-blueprint-js",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "A Javascript library to create Clay blueprints",
   "main": "lib/index.js",
   "repository": "https://github.com/linksderisar/clay-blueprints-js.git",

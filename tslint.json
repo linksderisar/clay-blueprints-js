@@ -12,6 +12,10 @@
     ],
     "member-access": false,
     "object-literal-sort-keys": false,
-    "interface-name": false
+    "interface-name": false,
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ]
   }
 }

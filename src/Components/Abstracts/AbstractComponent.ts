@@ -1,16 +1,13 @@
 import ComponentBlueprint from '../../Blueprints/ComponentBlueprint';
+import {IfConditionBlueprint, LoopBlueprint, ShowConditionBlueprint} from '../../index';
 import ComponentInterface from '../Contracts/ComponentInterface';
 
 export default class AbstractComponent implements ComponentInterface {
-    protected id = '';
-
     protected type = '';
 
     protected _blueprint!: ComponentBlueprint;
 
     protected _children: AbstractComponent[] = [];
-
-    protected _scopedSlots: AbstractComponent[] = [];
 
     protected bindable = {
         prop: 'addBindProp',
@@ -19,19 +16,20 @@ export default class AbstractComponent implements ComponentInterface {
         attributes: 'addBindAttributes',
     };
 
-    protected constructor() {
-        this.setBlueprint(ComponentBlueprint.create(this.type));
+    protected constructor(type) {
+        this.setType(type);
+        this.setBlueprint(ComponentBlueprint.create(type));
     }
 
     public getId(): string {
-        return this.id;
+        return this._blueprint.getId();
     }
 
     public getType(): string {
         return this.type;
     }
 
-    public setType(type) {
+    public setType(type: string) {
         this.type = type;
         return this;
     }
@@ -51,15 +49,6 @@ export default class AbstractComponent implements ComponentInterface {
 
     public setChildren(children: AbstractComponent[]): AbstractComponent {
         this._children = children;
-        return this;
-    }
-
-    public getScopedSlots(): AbstractComponent[] {
-        return this._scopedSlots;
-    }
-
-    public setScopedSlots(scopedSlots: AbstractComponent[]): AbstractComponent {
-        this._scopedSlots = scopedSlots;
         return this;
     }
 
@@ -99,13 +88,12 @@ export default class AbstractComponent implements ComponentInterface {
 
     public children(children: AbstractComponent[]): AbstractComponent {
         this.setChildren(children);
-        this._blueprint.setChildren(children.map((c) => c._blueprint));
+        this._blueprint.setChildren(children.map(c => c._blueprint));
         return this;
     }
 
-    public scopedSlots(scopes: (any) => any): AbstractComponent {
-        this.setScopedSlots(scopes([this._blueprint, 'slotProp']));
-        this._blueprint.setScopedSlots((scope) => scopes(scope).map((s) => s._blueprint));
+    public scopedSlots(scopes: (scope: Function) => AbstractComponent[]) {
+        this._blueprint.setScopedSlots(scope => scopes(scope).map(s => s._blueprint));
         return this;
     }
 
@@ -129,8 +117,48 @@ export default class AbstractComponent implements ComponentInterface {
         return this;
     }
 
-    public key(key: string) {
+    public key(key: string): this {
         this._blueprint.setKey(key);
+        return this;
+    }
+
+    public ref(ref: string): this {
+        this._blueprint.setRef(ref);
+        return this;
+    }
+
+    public refInFor(refInFor: true): this {
+        this._blueprint.setRefInFor(refInFor);
+        return this;
+    }
+
+    public affect(affect: string): this {
+        this._blueprint.setAffect(affect);
+        return this;
+    }
+
+    public on(event: string, callback: string): this {
+        this._blueprint.addOn({[event]: callback});
+        return this;
+    }
+
+    public text(text: string): this {
+        this._blueprint.setText(text);
+        return this;
+    }
+
+    public loop(iterable: string): this {
+        this._blueprint.setLoop(LoopBlueprint.create(iterable));
+        return this;
+    }
+
+    public if(condition: string): this {
+        this._blueprint.addCondition(IfConditionBlueprint.create(condition));
+        return this;
+    }
+
+    public show(condition: string): this {
+        this._blueprint.addCondition(ShowConditionBlueprint.create(condition));
         return this;
     }
 

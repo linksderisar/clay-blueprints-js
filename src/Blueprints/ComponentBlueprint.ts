@@ -100,8 +100,8 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         return this.scopedSlots;
     }
 
-    public setScopedSlots(scopedSlots: (string) => AbstractBlueprint | AbstractBlueprint[]): this {
-        const bp: AbstractBlueprint | AbstractBlueprint[] = scopedSlots((ref) => this.slotProp(ref));
+    public setScopedSlots(scopedSlots: Function): this {
+        const bp: AbstractBlueprint | AbstractBlueprint[] = scopedSlots(ref => this.slotProp(ref));
 
         if (bp instanceof AbstractBlueprint) {
             this.scopedSlots = [bp];
@@ -348,10 +348,7 @@ export default class ComponentBlueprint extends AbstractBlueprint {
         }
 
         if (this.conditions.length > 0) {
-            obj = {
-                ...obj,
-                ...this.conditions.map((condition) => condition.toObject()),
-            };
+            this.conditions.forEach(condition => obj[condition.getType()] = condition.getCondition());
         }
 
         if (typeof this.text !== 'undefined') {

@@ -69,7 +69,7 @@ export default class RootBlueprint extends AbstractBlueprint {
     public addHeader(key: string, value: string): RootBlueprint {
         this._head = {
             ...this._head,
-            [key]: [value],
+            [key]: value,
         };
 
         return this;
